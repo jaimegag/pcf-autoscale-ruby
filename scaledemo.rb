@@ -43,3 +43,12 @@
     settings.requests += 1
     "<h2>I'm healthy!</h2>"
   end
+
+  get '/read' do
+    servicedata = JSON.parse(ENV['VCAP_SERVICES'])
+    host = servicedata['p-redis'][0]['credentials']['host']
+    password = servicedata['p-redis'][0]['credentials']['password']
+    port = servicedata['p-redis'][0]['credentials']['port']
+    "<h2>Host: " + host.to_s + "</h2>" + "<h2>Password: " + password + "</h2>" + "<h2>Port: " + port.to_s + "</h2>"
+    # $redis = Redis.new(:host => host, :port => port)
+  end
